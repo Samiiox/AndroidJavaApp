@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:padding="10sp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/mpg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="mpg"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/displacement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="displacement"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/horsePower"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="horsePower"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="weight" />
+
+    <TextView
+        android:id="@+id/acceleration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="acceleration"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/origine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="origine"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:id="@+id/relative"
+        android:layout_width="113dp"
+        android:layout_height="54dp"
+        android:layout_marginRight="28dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="61dp"
+            android:layout_height="51dp"
+            android:padding="10sp"
+            android:src="@drawable/modifier" />
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#BF1F1F"
+            android:padding="10sp"
+            android:src="@drawable/supprimer" />
+
+    </LinearLayout>
+
+</LinearLayout>

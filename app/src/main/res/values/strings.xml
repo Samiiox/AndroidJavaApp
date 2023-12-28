@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AndroidApp</string>
+    <string name="car_photo">Car</string>
+    <string name="mpg">Mpg</string>
+    <string name="displacement">Displacement</string>
+    <string name="acceleration">Acceleration</string>
+    <string name="weight">Weight</string>
+    <string name="horse_power">Horse Power</string>
+</resources>

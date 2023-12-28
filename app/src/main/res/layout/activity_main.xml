@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="399dp"
+        android:layout_height="147dp"
+        android:layout_marginTop="92dp"
+        android:contentDescription="@string/car_photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/car" />
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="168dp"
+        android:layout_height="335dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp">
+
+        <TextView
+            android:id="@+id/textViewMpg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/mpg"
+            android:textSize="3mm"
+            tools:ignore="InOrMmUsage" />
+
+        <TextView
+            android:id="@+id/textViewDisplacement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/displacement"
+            android:textSize="3mm" />
+
+        <TextView
+            android:id="@+id/textViewHorsePower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/horse_power"
+            android:textSize="3mm" />
+
+        <TextView
+            android:id="@+id/textViewWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/weight"
+            android:textSize="3mm" />
+
+        <TextView
+            android:id="@+id/textViewAcceleration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:text="@string/acceleration"
+            android:textSize="3mm" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonMl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="ML Algrithms"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout"
+        tools:ignore="HardcodedText" />
+
+    <LinearLayout
+        android:layout_width="215dp"
+        android:layout_height="362dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:textSize="3mm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintStart_toEndOf="@+id/layout"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="MissingConstraints">
+
+        <EditText
+            android:id="@+id/editTextNumberSignedMpg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:inputType="numberSigned"
+            android:padding="10dp"
+            android:textSize="3mm" />
+
+        <EditText
+            android:id="@+id/editTextNumberSignedDisp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:inputType="numberSigned"
+            android:padding="10dp"
+            android:textSize="3mm" />
+
+        <EditText
+            android:id="@+id/editTextNumberSignedHorse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:inputType="numberSigned"
+            android:padding="10dp"
+            android:textSize="3mm" />
+
+        <EditText
+            android:id="@+id/editTextNumberSignedWei"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:inputType="numberSigned"
+            android:padding="10dp"
+            android:textSize="3mm" />
+
+        <EditText
+            android:id="@+id/editTextNumberSignedAcc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:inputType="numberSigned"
+            android:padding="10dp"
+            android:textSize="3mm" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="112dp"
+        android:layout_height="63dp"
+        android:text="add"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <Button
+        android:id="@+id/recyclerButton"
+        android:layout_width="105dp"
+        android:layout_height="54dp"
+        android:text="voir data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/add"
+        tools:layout_editor_absoluteY="7dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
