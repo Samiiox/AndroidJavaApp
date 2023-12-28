@@ -11,7 +11,7 @@ import Model.MachineLearning;
 
 public class Knn implements Algorithms{
 
-//issam comment
+
     public String Knn(List<MachineLearning> machineLearningList, double mpgValue, double displacementValue, double accelerationValue, double weightValue, double horsePowerValue, int kValue) {
         // Créez un tableau pour stocker les données avec la colonne "distance euclidienne"
         List<Map<String, String>> dataWithDistanceList = new ArrayList<>();

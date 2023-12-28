@@ -9,7 +9,7 @@ import java.util.Map;
 import Model.MachineLearning;
 
 
-//sami comment
+
 
 public class Bayes implements Algorithms{
 
