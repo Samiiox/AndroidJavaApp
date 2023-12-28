@@ -8,6 +8,9 @@ import java.util.Map;
 
 import Model.MachineLearning;
 
+
+//sami comment
+
 public class Bayes implements Algorithms{
 
     public List<String> Bayes(List<MachineLearning> machineLearningList, double mpgValue, double displacementValue, double accelerationValue, double weightValue, double horsePowerValue) {
