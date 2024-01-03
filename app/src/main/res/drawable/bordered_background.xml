@@ -1,0 +1,8 @@
+<!-- res/drawable/simple_border.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@android:color/transparent" />
+    <corners android:radius="20px"/>
+    <stroke
+        android:color="@color/blue"
+        android:width="2dp" /> <!-- Adjust the border width as needed -->
+</shape>

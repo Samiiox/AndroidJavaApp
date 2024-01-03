@@ -14,7 +14,7 @@
         android:ems="10"
         android:inputType="text"
         android:text="MPG"
-        app:layout_constraintBottom_toTopOf="@+id/editTextAccE"
+        app:layout_constraintBottom_toTopOf="@+id/editTextDispE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,11 +29,11 @@
         android:ems="10"
         android:inputType="text"
         android:text="Displacement"
-        app:layout_constraintBottom_toTopOf="@+id/editTextOrE"
+        app:layout_constraintBottom_toTopOf="@+id/editTextHorsPE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextWeiE"
+        app:layout_constraintTop_toBottomOf="@+id/editTextMpgE"
         app:layout_constraintVertical_bias="0.5"
         tools:ignore="MissingConstraints" />
 
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAccE"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDispE"
         app:layout_constraintVertical_bias="0.5"
         tools:ignore="MissingConstraints" />
 
@@ -59,7 +59,7 @@
         android:ems="10"
         android:inputType="text"
         android:text="Weight"
-        app:layout_constraintBottom_toTopOf="@+id/editTextDispE"
+        app:layout_constraintBottom_toTopOf="@+id/editTextAccE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,11 +73,12 @@
         android:ems="10"
         android:inputType="text"
         android:text="Acceleration"
-        app:layout_constraintBottom_toTopOf="@+id/editTextHorsPE"
+        app:layout_constraintBottom_toTopOf="@+id/editTextOrE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextMpgE"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWeiE"
+        app:layout_constraintVertical_bias="0.5"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -91,7 +92,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDispE"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAccE"
+        app:layout_constraintVertical_bias="0.5"
         tools:ignore="MissingConstraints" />
 
     <Button

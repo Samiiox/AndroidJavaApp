@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mlButton = findViewById(R.id.buttonMl);
+        mlButton = findViewById(R.id.mlAlgoBtn);
         mpg = findViewById(R.id.editTextNumberSignedMpg);
         displacement = findViewById(R.id.editTextNumberSignedDisp);
         acceleration = findViewById(R.id.editTextNumberSignedAcc);

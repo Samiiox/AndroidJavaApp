@@ -25,13 +25,13 @@ public class AddData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_data);
 
-        mpg = findViewById(R.id.editTextMpg);
-        displacement = findViewById(R.id.editTextDisp);
-        horsePower = findViewById(R.id.editTextHorsP);
-        weight = findViewById(R.id.editTextWei);
-        acceleration = findViewById(R.id.editTextAcc);
-        origin = findViewById(R.id.editTextOr);
-        button = findViewById(R.id.button2);
+        mpg = findViewById(R.id.mpge);
+        displacement = findViewById(R.id.displacement);
+        horsePower = findViewById(R.id.horsePower);
+        weight = findViewById(R.id.weight);
+        acceleration = findViewById(R.id.acceleration);
+        origin = findViewById(R.id.origine);
+        button = findViewById(R.id.addData);
 
         dataBaseHandler = new DataBaseHandler(this, Utils.DATABASE_NAME, null, Utils.DATABASE_VERSION);
 

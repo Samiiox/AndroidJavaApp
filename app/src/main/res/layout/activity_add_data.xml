@@ -1,110 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00BCD4"
+    android:orientation="vertical"
     tools:context=".AddData">
 
-    <EditText
-        android:id="@+id/editTextMpg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="MPG"
-        app:layout_constraintBottom_toTopOf="@+id/editTextDisp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="6mm"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:paddingVertical="10dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3mm"
+            android:layout_marginLeft="1mm"
+            android:textColor="@color/white_2"
+            android:textStyle="bold"
+            android:textSize="60px"
+            android:text="Add data to database"/>
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/add_data_page_border_inputs"
+            android:paddingHorizontal="3mm"
+            android:paddingVertical="4mm"
+            >
 
-    <EditText
-        android:id="@+id/editTextDisp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Displacement"
-        app:layout_constraintBottom_toTopOf="@+id/editTextHorsP"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextMpg"
-        app:layout_constraintVertical_bias="0.5"
-        tools:ignore="MissingConstraints" />
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/mpge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="Mpge"
+                    android:textColorHint="@color/gray_1"
+                    android:background="@drawable/custom_input_add_data"
+                    android:paddingVertical="3mm"
+                    android:layout_marginBottom="4mm"
+                    android:paddingLeft="4mm"/>
+                <EditText
+                    android:id="@+id/displacement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="Displacement"
+                    android:textColorHint="@color/gray_1"
+                    android:background="@drawable/custom_input_add_data"
+                    android:paddingVertical="3mm"
+                    android:layout_marginBottom="4mm"
+                    android:paddingLeft="4mm"/>
+                <EditText
+                    android:id="@+id/horsePower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="Horse Power"
+                    android:textColorHint="@color/gray_1"
+                    android:background="@drawable/custom_input_add_data"
+                    android:paddingVertical="3mm"
+                    android:layout_marginBottom="4mm"
+                    android:paddingLeft="4mm"/>
+                <EditText
+                    android:id="@+id/weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="Weight"
+                    android:textColorHint="@color/gray_1"
+                    android:background="@drawable/custom_input_add_data"
+                    android:paddingVertical="3mm"
+                    android:layout_marginBottom="4mm"
+                    android:paddingLeft="4mm"/>
+                <EditText
+                    android:id="@+id/acceleration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="Acceleration"
+                    android:textColorHint="@color/gray_1"
+                    android:background="@drawable/custom_input_add_data"
+                    android:paddingVertical="3mm"
+                    android:layout_marginBottom="4mm"
+                    android:paddingLeft="4mm"/>
+                <EditText
+                    android:id="@+id/origine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="Origine"
+                    android:textColorHint="@color/gray_1"
+                    android:background="@drawable/custom_input_add_data"
+                    android:paddingVertical="3mm"
+                    android:paddingLeft="4mm"/>
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:hintTextColor="@color/white"-->
+<!--                    app:cursorColor="@color/white">-->
 
-    <EditText
-        android:id="@+id/editTextHorsP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Horse Power"
-        app:layout_constraintBottom_toTopOf="@+id/editTextWei"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDisp"
-        app:layout_constraintVertical_bias="0.5"
-        tools:ignore="MissingConstraints" />
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                      -->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                      -->
+<!--                       />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-    <EditText
-        android:id="@+id/editTextWei"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Weight"
-        app:layout_constraintBottom_toTopOf="@+id/editTextAcc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextHorsP"
-        app:layout_constraintVertical_bias="0.5" />
+            </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextAcc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Acceleration"
-        app:layout_constraintBottom_toTopOf="@+id/editTextOr"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextWei"
-        tools:ignore="MissingConstraints" />
 
-    <EditText
-        android:id="@+id/editTextOr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="152dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Origine"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAcc"
-        app:layout_constraintVertical_bias="0.5"
-        tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextOr"
-        app:layout_constraintVertical_bias="0.5"
-        tools:ignore="MissingConstraints" />
+        </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="3mm">
+
+            <Button
+                android:id="@+id/addData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/blue"
+                android:textStyle="bold"
+                android:textSize="50px"
+                android:paddingVertical="2mm"
+                android:background="@drawable/add_or_view_data_button_selector"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

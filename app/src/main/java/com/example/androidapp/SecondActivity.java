@@ -1,5 +1,7 @@
 package com.example.androidapp;
 
+import static Service.EntropyCalculator.calculateAndPrintEntropy;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +30,8 @@ import Service.Knn;
 
 public class SecondActivity extends AppCompatActivity {
 
-    private TextView textView;
+    public String checkedRadioButtonText = "";
+
     private RadioGroup radioGroup;
     private RadioButton radioButton;
     private EditText k;
@@ -53,28 +58,29 @@ public class SecondActivity extends AppCompatActivity {
 
 
         // Initialize views
-        textView = findViewById(R.id.textView);
-        radioGroup = findViewById(R.id.radioGroup);
-        k = findViewById(R.id.editTextK);
-        buttonCalcule = findViewById(R.id.buttonCalcule);
-
+//        textView = findViewById(R.id.textView);
+        radioGroup = findViewById(R.id.radioGroupAlgo);
+        TextInputLayout kEditTextLayout = findViewById(R.id.kInputLayout);
+        k = findViewById(R.id.kInput);
+        buttonCalcule = findViewById(R.id.submit_algo);
+        //by defaul the kEditTextLayout should be invisible
+        kEditTextLayout.setVisibility(View.GONE);
 
 
         // Set up the RadioGroup's OnCheckedChangeListener
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int checkedId) {
-                radioButton = findViewById(checkedId);
-
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = findViewById(checkedId);
+                checkedRadioButtonText = checkedRadioButton.getText().toString();
                 if (checkedId == R.id.radioButtonKnn) {
-                    k.setVisibility(View.VISIBLE);
-                    textView.setText("Selected: KNN");
-                } else if (checkedId == R.id.radioButtonDT) {
-                    k.setVisibility(View.INVISIBLE);
-                    textView.setText("Selected: Decision Tree");
-                } else if (checkedId == R.id.radioButtonB) {
-                    k.setVisibility(View.INVISIBLE);
-                    textView.setText("Selected: Bayes Network");
+                    kEditTextLayout.setVisibility(View.VISIBLE);
+                } else if(checkedId==R.id.radioButtonDT){
+                    kEditTextLayout.setVisibility(View.GONE);
+                    k.setText("");
+                }else if(checkedId==R.id.radioButtonBayes){
+                    kEditTextLayout.setVisibility(View.GONE);
+                    k.setText("");
                 }
             }
         });
@@ -85,336 +91,26 @@ public class SecondActivity extends AppCompatActivity {
         buttonCalcule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.e("TAG",checkedRadioButtonText);
+
 
                 // Récupérez les données depuis la base de données
                 List<MachineLearning> machineLearningList = dataBaseHandler.getAllData();
 
-
-                if(textView.getText() == "Selected: KNN"){
+                if(checkedRadioButtonText.equals("KNN")){
                     int kValue = Integer.parseInt(k.getText().toString());
+                    Log.e("K", String.valueOf(kValue));
                     knnHelper = new Knn();
                     String res = knnHelper.Knn( machineLearningList,  mpgValue,  displacementValue,  accelerationValue,  weightValue,  horsePowerValue,  kValue);
                     Log.d("res", res);
-                } else if (textView.getText() == "Selected: Bayes Network") {
+                } else if (checkedRadioButtonText.equals("BAYES NETWORK")) {
                     bayesHelper = new Bayes();
                     List<String> res = bayesHelper.Bayes( machineLearningList,  mpgValue,  displacementValue,  accelerationValue,  weightValue,  horsePowerValue);
                     System.out.println(res);
-                } else if (textView.getText() == "Selected: Decision Tree") {
-                    // Créez un tableauAmeliorer
-                    List<Map<String, String>> newList = new ArrayList<>();
-
-                    for (MachineLearning data : machineLearningList) {
-                        Map<String, String> rowData = new HashMap<>();
-
-                        rowData.put("mpg", String.valueOf(data.getMpg()));
-                        rowData.put("displacement", String.valueOf(data.getDisplacement()));
-                        rowData.put("horsePower", String.valueOf(data.getHorsePower()));
-                        rowData.put("weight", String.valueOf(data.getWeight()));
-                        rowData.put("acceleration", String.valueOf(data.getAcceleration()));
-                        rowData.put("origin", String.valueOf(data.getOrigin()));
-
-                        newList.add(rowData);
-
-                    }
-
-
-                    double size = newList.size();
-                    double mpgMoyen = 0;
-                    double displacementMoyen = 0;
-                    double accelerationMoyen = 0;
-                    double weightMoyen = 0;
-                    double horsePowerMoyen = 0;
-
-
-                    for (Map<String, String> rowData : newList) {
-                        // calculer la somme de la colonne
-                        mpgMoyen += Integer.parseInt(rowData.get("mpg"));
-                        displacementMoyen += Integer.parseInt(rowData.get("displacement"));
-                        accelerationMoyen += Integer.parseInt(rowData.get("acceleration"));
-                        weightMoyen += Integer.parseInt(rowData.get("weight"));
-                        horsePowerMoyen += Integer.parseInt(rowData.get("horsePower"));
-
-                    }
-                    //calculer la moyenne
-                    mpgMoyen /= size;
-                    displacementMoyen /= size;
-                    accelerationMoyen /= size;
-                    weightMoyen /= size;
-                    horsePowerMoyen /= size;
-
-
-                    //liste qui vas stocker le tableau qui contient A et B
-                    List<Map<String, String>> newListUpdated = new ArrayList<>();
-
-                    //Map qui vas contenir le nombre d'occurence de Origin
-                    Map<String, Integer> occurrencesMap = new HashMap<>();
-
-                    Map<String, Double> japaneseProba = new HashMap<>();
-                    Map<String, Double> americanProba = new HashMap<>();
-                    Map<String, Double> europeanProba = new HashMap<>();
-
-
-                    Map<String, Integer> occurrencesJapenese = new HashMap<>();
-                    Map<String, Integer> occurrencesAmerican = new HashMap<>();
-                    Map<String, Integer> occurrencesEuropean = new HashMap<>();
-
-
-                    //liste comptenant A et B en plus de calcule des occurence
-                    List<String> attributes = Arrays.asList("mpg", "displacement", "horsePower", "weight", "acceleration");
-                    List<String> types = Arrays.asList("japanese", "american", "european");
-                    List<String> values = Arrays.asList("A", "B");
-
-                    // Generate attribute names
-//                    for (String attribute : attributes) {
-//                        for (String type : types) {
-//                            for (String value : values) {
-//                                String attributeName = "count_" + type + "_" + value + "_" + attribute;
-//                            }
-//                        }
-//                    }
-
-
-
-
-
-
-
-
-
-
-                    Double countJA = 0.0;
-                    Double countJB = 0.0;
-                    Double countAA = 0.0;
-                    Double countAB = 0.0;
-                    Double countEA = 0.0;
-                    Double countEB = 0.0;
-                    Double totalAMpg = 0.0;
-                    Double totalBMpg = 0.0;
-                    Double entropieA = 0.0;
-                    Double entropieB = 0.0;
-                    Map<String , Double> mpgProba = new HashMap<>();
-                    Map<String , Double> entropie = new HashMap<>();
-                    for (Map<String, String> rowData : newList) {
-                        // Mettez à jour la valeur de "mpg" en fonction de la moyenne
-                        rowData.put("mpg", (Integer.parseInt(rowData.get("mpg")) >= mpgMoyen) ? "A" : "B");
-                        rowData.put("displacement", (Integer.parseInt(rowData.get("displacement")) >= displacementMoyen) ? "A" : "B");
-                        rowData.put("horsePower", (Integer.parseInt(rowData.get("horsePower")) >= horsePowerMoyen) ? "A" : "B");
-                        rowData.put("weight", (Integer.parseInt(rowData.get("weight")) >= weightMoyen) ? "A" : "B");
-                        rowData.put("acceleration", (Integer.parseInt(rowData.get("acceleration")) >= accelerationMoyen) ? "A" : "B");
-                        // Ajoutez la ligne mise à jour à la nouvelle liste
-                        newListUpdated.add(rowData);
-
-                        String origin = rowData.get("origin");
-                        occurrencesMap.put(origin, occurrencesMap.getOrDefault(origin, 0) + 1);
-
-                        // Check the mpg
-                        String updatedOrigin = rowData.get("origin");
-                        if ("A".equals(rowData.get("mpg"))) {
-                            if ("japanese".equals(updatedOrigin)) {
-                                countJA++;
-                            } else if("american".equals(updatedOrigin)) {
-                                countAA++;
-                            } else if ("european".equals(updatedOrigin)) {
-                                countEA++;
-                            }
-                        }else if("B".equals(rowData.get("mpg"))){
-                            if ("japanese".equals(updatedOrigin)) {
-                                countJB++;
-                            } else if("american".equals(updatedOrigin)) {
-                                countAB++;
-                            } else if ("european".equals(updatedOrigin)) {
-                                countEB++;
-                            }
-                        }
-
-                        if ("A".equals(rowData.get("mpg"))) {
-                            totalAMpg++;
-                        } else if ("B".equals(rowData.get("mpg"))) {
-                            totalBMpg++;
-                        }
-
-
-                    }
-
-
-                    entropieA = -(countJA/totalAMpg)*logBase2(countJA , totalAMpg)
-                            -(countAA/totalAMpg)*logBase2(countAA , totalAMpg)
-                            -(countEA/totalAMpg)*logBase2(countEA , totalAMpg);
-                    entropieB = -(countJB/totalBMpg)*logBase2(countJB , totalBMpg)
-                            -(countAB/totalBMpg)*logBase2(countAB , totalBMpg)
-                            -(countEB/totalBMpg)*logBase2(countEB , totalBMpg);
-
-                    mpgProba.put("JA",countJA);
-                    mpgProba.put("JB",countJB);
-                    mpgProba.put("AA",countAA);
-                    mpgProba.put("AB",countAB);
-                    mpgProba.put("EA",countEA);
-                    mpgProba.put("EB",countJA);
-                    mpgProba.put("entropieA",entropieA);
-                    mpgProba.put("entropieB",entropieB);
-
-                    entropie.put("mpg" , ((countEA+countAA+countJA)/(totalAMpg+totalBMpg))*entropieA
-                    + ((countEB+countAB+countJB)/(totalAMpg+totalBMpg))*entropieB);
-
-                    System.out.println(mpgProba.get("entropieA"));
-                    System.out.println(mpgProba.get("entropieB"));
-                    System.out.println(entropie);
-
-
-                     countJA = 0.0;
-                     countJB = 0.0;
-                     countAA = 0.0;
-                     countAB = 0.0;
-                     countEA = 0.0;
-                     countEB = 0.0;
-                     totalAMpg = 0.0;
-                     totalBMpg = 0.0;
-                     entropieA = 0.0;
-                     entropieB = 0.0;
-
-
-                    for (Map<String, String> rowData : newList) {
-                        String origin = rowData.get("origin");
-
-                        // Check the displacement
-                        String updatedOrigin = rowData.get("origin");
-                        if ("A".equals(rowData.get("displacement"))) {
-                            if ("japanese".equals(updatedOrigin)) {
-                                countJA++;
-                            } else if("american".equals(updatedOrigin)) {
-                                countAA++;
-                            } else if ("european".equals(updatedOrigin)) {
-                                countEA++;
-                            }
-                        }else if("B".equals(rowData.get("displacement"))){
-                            if ("japanese".equals(updatedOrigin)) {
-                                countJB++;
-                            } else if("american".equals(updatedOrigin)) {
-                                countAB++;
-                            } else if ("european".equals(updatedOrigin)) {
-                                countEB++;
-                            }
-                        }
-
-                        if ("A".equals(rowData.get("displacement"))) {
-                            totalAMpg++;
-                        } else if ("B".equals(rowData.get("displacement"))) {
-                            totalBMpg++;
-                        }
-
-
-
-                    }
-
-                    entropieA = -(countJA/totalAMpg)*logBase2(countJA , totalAMpg)
-                            -(countAA/totalAMpg)*logBase2(countAA , totalAMpg)
-                            -(countEA/totalAMpg)*logBase2(countEA , totalAMpg);
-                    entropieB = -(countJB/totalBMpg)*logBase2(countJB , totalBMpg)
-                            -(countAB/totalBMpg)*logBase2(countAB , totalBMpg)
-                            -(countEB/totalBMpg)*logBase2(countEB , totalBMpg);
-
-                    mpgProba.put("JA",countJA);
-                    mpgProba.put("JB",countJB);
-                    mpgProba.put("AA",countAA);
-                    mpgProba.put("AB",countAB);
-                    mpgProba.put("EA",countEA);
-                    mpgProba.put("EB",countJA);
-                    mpgProba.put("entropieA",entropieA);
-                    mpgProba.put("entropieB",entropieB);
-
-                    entropie.put("mpg" , ((countEA+countAA+countJA)/(totalAMpg+totalBMpg))*entropieA
-                            + ((countEB+countAB+countJB)/(totalAMpg+totalBMpg))*entropieB);
-
-                    System.out.println(mpgProba.get("entropieA"));
-                    System.out.println(mpgProba.get("entropieB"));
-                    System.out.println(entropie);
-
-
-
-
-
-
-
-                    countJA = 0.0;
-                    countJB = 0.0;
-                    countAA = 0.0;
-                    countAB = 0.0;
-                    countEA = 0.0;
-                    countEB = 0.0;
-                    totalAMpg = 0.0;
-                    totalBMpg = 0.0;
-                    entropieA = 0.0;
-                    entropieB = 0.0;
-
-
-                    for (Map<String, String> rowData : newList) {
-                        String origin = rowData.get("origin");
-
-                        // Check the displacement
-                        String updatedOrigin = rowData.get("origin");
-                        if ("A".equals(rowData.get("horsePower"))) {
-                            if ("japanese".equals(updatedOrigin)) {
-                                countJA++;
-                            } else if("american".equals(updatedOrigin)) {
-                                countAA++;
-                            } else if ("european".equals(updatedOrigin)) {
-                                countEA++;
-                            }
-                        }else if("B".equals(rowData.get("horsePower"))){
-                            if ("japanese".equals(updatedOrigin)) {
-                                countJB++;
-                            } else if("american".equals(updatedOrigin)) {
-                                countAB++;
-                            } else if ("european".equals(updatedOrigin)) {
-                                countEB++;
-                            }
-                        }
-
-                        if ("A".equals(rowData.get("horsePower"))) {
-                            totalAMpg++;
-                        } else if ("B".equals(rowData.get("horsePower"))) {
-                            totalBMpg++;
-                        }
-
-
-
-                    }
-
-                    entropieA = -(countJA/totalAMpg)*logBase2(countJA , totalAMpg)
-                            -(countAA/totalAMpg)*logBase2(countAA , totalAMpg)
-                            -(countEA/totalAMpg)*logBase2(countEA , totalAMpg);
-                    entropieB = -(countJB/totalBMpg)*logBase2(countJB , totalBMpg)
-                            -(countAB/totalBMpg)*logBase2(countAB , totalBMpg)
-                            -(countEB/totalBMpg)*logBase2(countEB , totalBMpg);
-
-                    mpgProba.put("JA",countJA);
-                    mpgProba.put("JB",countJB);
-                    mpgProba.put("AA",countAA);
-                    mpgProba.put("AB",countAB);
-                    mpgProba.put("EA",countEA);
-                    mpgProba.put("EB",countJA);
-                    mpgProba.put("entropieA",entropieA);
-                    mpgProba.put("entropieB",entropieB);
-
-                    entropie.put("mpg" , ((countEA+countAA+countJA)/(totalAMpg+totalBMpg))*entropieA
-                            + ((countEB+countAB+countJB)/(totalAMpg+totalBMpg))*entropieB);
-
-                    System.out.println(mpgProba.get("entropieA"));
-                    System.out.println(mpgProba.get("entropieB"));
-                    System.out.println(entropie);
-
-
-
-
-
-
-
-
-
-                    }
-
-
-
+                } else if (checkedRadioButtonText.equals("DECISION TREE")) {
+                    // Créez un tableau Ameliorer
+                    Map<String, Double> entrop = calculateAndPrintEntropy(machineLearningList);
+                }
             }
         });
     }

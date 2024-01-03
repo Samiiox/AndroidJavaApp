@@ -3,6 +3,7 @@ package Controller;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidapp.EditData;
 import com.example.androidapp.R;
 
 import java.util.List;
@@ -89,7 +91,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ///
+
+                // Get the selected MachineLearning object
+                MachineLearning selectedMachineLearning = machineLearningList.get(position);
+
+                // Create an intent to start the EditData activity
+                Intent intent = new Intent(context, EditData.class);
+                intent.putExtra("machineLearning",selectedMachineLearning);
+                context.startActivity(intent);
             }
         });
 

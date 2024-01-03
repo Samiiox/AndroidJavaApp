@@ -1,5 +1,6 @@
 package com.example.androidapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,60 +13,61 @@ import Model.MachineLearning;
 import Utils.Utils;
 
 public class EditData extends AppCompatActivity {
-    private EditText mpg, displacement, horsePower, weight, acceleration, origin;
-    private Button button;
-    private DataBaseHandler dataBaseHandler;
-    private MachineLearning machineLearning;
-    int position;
+
+    private MachineLearning selectedMachineLearning;
+    private EditText editTextMpgE, editTextDispE, editTextHorsPE, editTextWeiE, editTextAccE, editTextOrE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_data);
 
-        dataBaseHandler = new DataBaseHandler(getApplicationContext(), Utils.DATABASE_NAME, null, Utils.DATABASE_VERSION);
+        // Retrieve the selected MachineLearning object from the intent
+        Intent intent = getIntent();
+        if (intent.hasExtra("machineLearning")) {
+            selectedMachineLearning = intent.getParcelableExtra("machineLearning");
 
+            // Find the EditText views in the layout
+            editTextMpgE = findViewById(R.id.editTextMpgE);
+            editTextDispE = findViewById(R.id.editTextDispE);
+            editTextHorsPE = findViewById(R.id.editTextHorsPE);
+            editTextWeiE = findViewById(R.id.editTextWeiE);
+            editTextAccE = findViewById(R.id.editTextAccE);
+            editTextOrE = findViewById(R.id.editTextOrE);
+            Button saveButton = findViewById(R.id.button2E);
 
-        mpg = findViewById(R.id.editTextMpgE);
-        displacement = findViewById(R.id.editTextDispE);
-        horsePower = findViewById(R.id.editTextHorsPE);
-        weight = findViewById(R.id.editTextWeiE);
-        acceleration = findViewById(R.id.editTextAccE);
-        origin = findViewById(R.id.editTextOrE);
-        button = findViewById(R.id.button2E);
+            // Set the text values based on the selectedMachineLearning object
+            editTextMpgE.setText(String.valueOf(selectedMachineLearning.getMpg()));
+            editTextDispE.setText(String.valueOf(selectedMachineLearning.getDisplacement()));
+            editTextHorsPE.setText(String.valueOf(selectedMachineLearning.getHorsePower()));
+            editTextWeiE.setText(String.valueOf(selectedMachineLearning.getWeight()));
+            editTextAccE.setText(String.valueOf(selectedMachineLearning.getAcceleration()));
+            editTextOrE.setText(selectedMachineLearning.getOrigin());
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            position = bundle.getInt("position");
-            machineLearning = dataBaseHandler.getData(position);
+            // Find the saveButton and add a click listener
+            saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Update the selectedMachineLearning object with the new values
+                    selectedMachineLearning.setMpg(Integer.parseInt(editTextMpgE.getText().toString()));
+                    selectedMachineLearning.setDisplacement(Integer.parseInt(editTextDispE.getText().toString()));
+                    selectedMachineLearning.setHorsePower(Integer.parseInt(editTextHorsPE.getText().toString()));
+                    selectedMachineLearning.setWeight(Integer.parseInt(editTextWeiE.getText().toString()));
+                    selectedMachineLearning.setAcceleration(Integer.parseInt(editTextAccE.getText().toString()));
+                    selectedMachineLearning.setOrigin(editTextOrE.getText().toString());
 
-            // Afficher les données existantes dans les champs d'édition
-            mpg.setText(String.valueOf(machineLearning.getMpg()));
-            displacement.setText(String.valueOf(machineLearning.getDisplacement()));
-            horsePower.setText(String.valueOf(machineLearning.getHorsePower()));
-            weight.setText(String.valueOf(machineLearning.getWeight()));
-            acceleration.setText(String.valueOf(machineLearning.getAcceleration()));
-            origin.setText(machineLearning.getOrigin());
+                    // Update the data in the database
+                    DataBaseHandler dataBaseHandler = new DataBaseHandler(EditData.this, Utils.DATABASE_NAME, null, Utils.DATABASE_VERSION);
+                    dataBaseHandler.updateData(selectedMachineLearning.getId(), selectedMachineLearning);
+
+                    // Finish the activity to go back to the previous one
+                    finish();
+                }
+            });
+        } else {
+            // Handle the case where the intent doesn't have the "machineLearning" extra
+            // You might want to show an error message or handle it as needed
+            finish(); // Finish the activity in this case
         }
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Mettre à jour les données avec les nouvelles valeurs
-                machineLearning.setMpg(Integer.parseInt(mpg.getText().toString()));
-                machineLearning.setDisplacement(Integer.parseInt(displacement.getText().toString()));
-                machineLearning.setHorsePower(Integer.parseInt(horsePower.getText().toString()));
-                machineLearning.setWeight(Integer.parseInt(weight.getText().toString()));
-                machineLearning.setAcceleration(Integer.parseInt(acceleration.getText().toString()));
-                machineLearning.setOrigin(origin.getText().toString());
-                // Mettre à jour les autres champs de la machineLearning si nécessaire
-
-                // Appeler la méthode d'update dans la base de données
-                dataBaseHandler.updateData(machineLearning.getId(), machineLearning);
-
-                // Terminer l'activité après la mise à jour
-                finish();
-            }
-        });
     }
 }
